@@ -36,7 +36,7 @@ export const tools: Tool[] = [
     status: "live",
     url: "https://blocksettings.vercel.app",
     repoUrl: "https://github.com/sebasaurio/BlockSettings",
-    screenshot: undefined,
+    screenshot: "/screenshots/block-settings.png",
     typeLabel: { es: "Web", en: "Web" },
     statusLabel: { es: "En producción", en: "Live" },
     tagline: {
@@ -73,9 +73,9 @@ export const tools: Tool[] = [
     name: "Metatrader Analyzer",
     type: "web",
     status: "live",
-    url: "https://metatrader-analysis.vercel.app/dashboard",
+    url: "https://metatrader-analysis.vercel.app",
     repoUrl: "https://github.com/sebasaurio/MetatraderAnalysis",
-    screenshot: undefined,
+    screenshot: "/screenshots/metatrader-analysis.png",
     typeLabel: { es: "Web", en: "Web" },
     statusLabel: { es: "En producción", en: "Live" },
     tagline: {
