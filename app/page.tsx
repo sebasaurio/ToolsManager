@@ -3,6 +3,7 @@
 import { tools, siteCopy } from "@/data/tools";
 import { useT, useLang } from "@/components/LangProvider";
 import { ToolCard } from "@/components/ToolCard";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 
 export default function Home() {
   const { lang } = useLang();
@@ -39,6 +40,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <PrivacyBanner />
 
       <section className="mx-auto max-w-6xl px-5 pb-24">
         <div className="mb-8 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end">

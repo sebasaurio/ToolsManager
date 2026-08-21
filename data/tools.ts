@@ -215,6 +215,9 @@ export const siteCopy: Record<
     count: string;
     footer: string;
     langToggle: string;
+    privacyTitle: string;
+    privacyPoints: string[];
+    privacyNote: string;
   }
 > = {
   es: {
@@ -237,6 +240,14 @@ export const siteCopy: Record<
     count: "herramientas",
     footer: "Directorio de herramientas de trading algorítmico.",
     langToggle: "EN",
+    privacyTitle: "Tu privacidad primero",
+    privacyPoints: [
+      "Nada de tus datos se envía a ningún servidor.",
+      "Todo el procesamiento ocurre en tu propia máquina.",
+      "Los archivos, estrategias y balances nunca salen de tu equipo.",
+    ],
+    privacyNote:
+      "Estas herramientas se ejecutan localmente en tu computadora. Puedes revisar el código en GitHub para verificarlo.",
   },
   en: {
     heroBadge: "Personal algorithmic trading toolkit",
@@ -258,5 +269,13 @@ export const siteCopy: Record<
     count: "tools",
     footer: "Algorithmic trading tools directory.",
     langToggle: "ES",
+    privacyTitle: "Your privacy first",
+    privacyPoints: [
+      "None of your data is sent to any server.",
+      "All processing happens on your own machine.",
+      "Files, strategies and balances never leave your computer.",
+    ],
+    privacyNote:
+      "These tools run locally on your computer. You can review the code on GitHub to verify it.",
   },
 };
