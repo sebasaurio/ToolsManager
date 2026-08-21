@@ -193,7 +193,6 @@ export const siteCopy: Record<
     heroBadge: string;
     heroTitle1: string;
     heroTitleAccent: string;
-    heroTitle2: string;
     heroSubtitle: string;
     sectionLabel: string;
     sectionTitle: string;
@@ -214,7 +213,6 @@ export const siteCopy: Record<
     heroBadge: "Kit personal de trading algorítmico",
     heroTitle1: "Herramientas para",
     heroTitleAccent: "trading algorítmico",
-    heroTitle2: "construidas a mano",
     heroSubtitle:
       "Un directorio de las herramientas que he ido construyendo para diseñar, calibrar, analizar y organizar estrategias de trading.",
     sectionLabel: "Herramientas",
@@ -236,7 +234,6 @@ export const siteCopy: Record<
     heroBadge: "Personal algorithmic trading toolkit",
     heroTitle1: "Tools for",
     heroTitleAccent: "algorithmic trading",
-    heroTitle2: "built by hand",
     heroSubtitle:
       "A directory of the tools I've built to design, calibrate, analyze and organize trading strategies.",
     sectionLabel: "Tools",

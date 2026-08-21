@@ -29,8 +29,7 @@ export default function Home() {
             {t.heroTitle1}{" "}
             <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
               {t.heroTitleAccent}
-            </span>{" "}
-            {t.heroTitle2}
+            </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
             {t.heroSubtitle}
