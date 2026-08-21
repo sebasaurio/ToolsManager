@@ -7,6 +7,7 @@ import { Screenshot } from "@/components/Screenshot";
 const typeStyles: Record<Tool["type"], string> = {
   web: "bg-sky-500/10 text-sky-300 border-sky-500/30",
   desktop: "bg-violet-500/10 text-violet-300 border-violet-500/30",
+  script: "bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30",
 };
 
 const statusStyles: Record<Tool["status"], string> = {

@@ -1,6 +1,6 @@
 export type Lang = "es" | "en";
 
-export type ToolType = "web" | "desktop";
+export type ToolType = "web" | "desktop" | "script";
 
 export type ToolStatus = "live" | "dev" | "mvp";
 
@@ -144,6 +144,45 @@ export const tools: Tool[] = [
     ],
     stack: ["Tauri 2", "Rust", "React 19", "TypeScript", "Tailwind", "SQLite"],
     tags: ["StrategyQuant", "Organizador", "Desktop", "SQLite", "Windows"],
+  },
+  {
+    slug: "trade-to-telegram",
+    name: "TradeToTelegram",
+    type: "script",
+    status: "live",
+    version: "2.00",
+    repoUrl: "https://github.com/sebasaurio/TradeToTelegram",
+    screenshot: undefined,
+    typeLabel: { es: "Script / EA", en: "Script / EA" },
+    statusLabel: { es: "En producción", en: "Live" },
+    tagline: {
+      es: "Bot de notificaciones y control de trading para MetaTrader 5 a través de Telegram, implementado como Expert Advisor.",
+      en: "Trading notifications and control bot for MetaTrader 5 via Telegram, implemented as an Expert Advisor.",
+    },
+    description: {
+      es: "Sistema completo de notificaciones y control para MT5 a través de Telegram. Envía en tiempo real aperturas y cierres de posiciones, órdenes, cambios de balance y un sumario diario; permite controlar la cuenta desde el chat con comandos (/posiciones, /estadisticas, /historial, /screenshot). Incluye gestión de riesgo con Circuit Breaker, enrutamiento multi-cuenta y multi-canal con soporte de topics, y captura de capturas de gráfico.",
+      en: "Full notification and control system for MT5 through Telegram. Sends real-time position openings/closings, orders, balance changes and a daily summary; lets you control the account from chat with commands (/posiciones, /estadisticas, /historial, /screenshot). Includes risk management with a Circuit Breaker, multi-account and multi-channel routing with topic support, and chart screenshot capture.",
+    },
+    highlights: [
+      {
+        es: "Notificaciones en tiempo real + sumario diario automático",
+        en: "Real-time notifications + automatic daily summary",
+      },
+      {
+        es: "Control desde chat: posiciones, estadísticas, historial, screenshot",
+        en: "Chat control: positions, stats, history, screenshot",
+      },
+      {
+        es: "Circuit Breaker con monitoreo de drawdown y cierre automático",
+        en: "Circuit Breaker with drawdown monitoring and auto-close",
+      },
+      {
+        es: "Multi-cuenta, multi-canal y soporte de topics en grupos",
+        en: "Multi-account, multi-channel and topic support in groups",
+      },
+    ],
+    stack: ["MQL5", "MetaTrader 5", "Telegram Bot API"],
+    tags: ["MetaTrader", "Telegram", "Notificaciones", "MQL5", "EA"],
   },
 ];
 
