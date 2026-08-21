@@ -18,6 +18,7 @@ export interface Tool {
   url?: string;
   repoUrl?: string;
   screenshot?: string;
+  screenshots?: string[];
   icon?: string;
   typeLabel: Localized;
   statusLabel: Localized;
@@ -37,6 +38,7 @@ export const tools: Tool[] = [
     url: "https://blocksettings.vercel.app",
     repoUrl: "https://github.com/sebasaurio/BlockSettings",
     screenshot: "/screenshots/block-settings.png",
+    screenshots: ["/screenshots/block-settings.png"],
     typeLabel: { es: "Web", en: "Web" },
     statusLabel: { es: "En producción", en: "Live" },
     tagline: {
@@ -76,6 +78,7 @@ export const tools: Tool[] = [
     url: "https://metatrader-analysis.vercel.app",
     repoUrl: "https://github.com/sebasaurio/MetatraderAnalysis",
     screenshot: "/screenshots/metatrader-analysis.png",
+    screenshots: ["/screenshots/metatrader-analysis.png"],
     typeLabel: { es: "Web", en: "Web" },
     statusLabel: { es: "En producción", en: "Live" },
     tagline: {
@@ -115,6 +118,7 @@ export const tools: Tool[] = [
     version: "0.4",
     repoUrl: "https://github.com/sebasaurio/SQXOrganizer",
     icon: "/icons/sqx-organizer.png",
+    screenshots: ["/screenshots/sqx-organizer-1.png"],
     typeLabel: { es: "Desktop", en: "Desktop" },
     statusLabel: { es: "MVP", en: "MVP" },
     tagline: {
@@ -153,7 +157,11 @@ export const tools: Tool[] = [
     status: "live",
     version: "2.00",
     repoUrl: "https://github.com/sebasaurio/TradeToTelegram",
-    screenshot: undefined,
+    screenshots: [
+      "/screenshots/trade-to-telegram-1.png",
+      "/screenshots/trade-to-telegram-2.png",
+      "/screenshots/trade-to-telegram-3.png",
+    ],
     typeLabel: { es: "Script / EA", en: "Script / EA" },
     statusLabel: { es: "En producción", en: "Live" },
     tagline: {

@@ -17,3 +17,21 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+.yarl__root {
+  --yarl__color_backdrop: rgba(6, 9, 13, 0.96);
+  --yarl__color_button: rgba(255, 255, 255, 0.9);
+  --yarl__color_button_active: #34d399;
+  --yarl__color_button_disabled: rgba(255, 255, 255, 0.2);
+  --yarl__color_button_bg: rgba(17, 24, 39, 0.7);
+  --yarl__button_backdrop_filter: blur(8px);
+  --yarl__carousel_button_background_color: rgba(17, 24, 39, 0.7);
+}
+
+.yarl__button {
+  filter: none;
+  background: var(--yarl__color_button_bg);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+}
+
