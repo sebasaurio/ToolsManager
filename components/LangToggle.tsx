@@ -26,7 +26,9 @@ export function LangToggle() {
         <circle cx="12" cy="12" r="9" />
         <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
       </svg>
-      {lang === "es" ? "EN" : "ES"}
+      <span className="uppercase">{lang === "es" ? "ES" : "EN"}</span>
+      <span className="text-emerald-400/50">→</span>
+      <span className="uppercase opacity-70">{next}</span>
     </button>
   );
 }
