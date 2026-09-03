@@ -31,6 +31,44 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
+    slug: "sqx-results-plugins",
+    name: "SQX ResultsPlugins",
+    type: "script",
+    status: "live",
+    version: "18",
+    repoUrl: "https://github.com/sebasaurio/SQXPlugins",
+    typeLabel: { es: "Plugins / HTML", en: "Plugins / HTML" },
+    statusLabel: { es: "En producción", en: "Live" },
+    tagline: {
+      es: "Colección de 18 plugins single-file que corren dentro de la pestaña Results de StrategyQuant X para analizar la estrategia seleccionada.",
+      en: "Collection of 18 single-file plugins that run inside the StrategyQuant X Results tab to analyze the selected strategy.",
+    },
+    description: {
+      es: "Suite de ResultsPlugins para SQX 144+ que se comunican con la estrategia vía la API PostMessage, todo 100% offline. Cubre el flujo completo de validación: detalle de rendimiento por año, costes reales de ejecución, anatomía de drawdowns, decay de edge (IS/OOS), tests de permutación (EGT), walk-forward, riesgo de ruina y planificador de capital, Monte Carlo para prop firms, analítica prop, calidad de trades, timing MAE/MFE, rachas, sesiones, calibración de indicadores y scorecards de degradación OOS.",
+      en: "Suite of ResultsPlugins for SQX 144+ that talk to the strategy via the PostMessage API, fully offline. Covers the whole validation flow: per-year performance detail, real execution costs, drawdown anatomy, edge decay (IS/OOS), permutation tests (EGT), walk-forward, risk of ruin and capital planner, prop-firm Monte Carlo, prop analytics, trade quality, MAE/MFE timing, streaks, sessions, indicator calibration and OOS degradation scorecards.",
+    },
+    highlights: [
+      {
+        es: "18 plugins single-file sin servidor ni CDN, i18n multilingüe",
+        en: "18 single-file plugins with no server or CDN, multi-language i18n",
+      },
+      {
+        es: "Validación anti-overfit: EGT, Walk-Forward y OOS Scorecard",
+        en: "Anti-overfit validation: EGT, Walk-Forward and OOS Scorecard",
+      },
+      {
+        es: "Riesgo: Risk of Ruin, Capital Planner, Prop Monte Carlo y Prop analytics",
+        en: "Risk: Risk of Ruin, Capital Planner, Prop Monte Carlo and Prop analytics",
+      },
+      {
+        es: "Comunicación vía PostMessage API de SQX, análisis de la estrategia activa",
+        en: "SQX PostMessage API communication, analyzes the active strategy",
+      },
+    ],
+    stack: ["HTML", "Vanilla JS", "Vue 3", "Canvas", "PostMessage API"],
+    tags: ["StrategyQuant", "SQX", "Plugins", "Análisis", "Backtest"],
+  },
+  {
     slug: "block-settings",
     name: "Block Settings Generator",
     type: "web",
