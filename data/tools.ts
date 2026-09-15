@@ -231,6 +231,48 @@ export const tools: Tool[] = [
     stack: ["MQL5", "MetaTrader 5", "Telegram Bot API"],
     tags: ["MetaTrader", "Telegram", "Notificaciones", "MQL5", "EA"],
   },
+  {
+    slug: "sqxtools",
+    name: "SQXTools",
+    type: "script",
+    status: "live",
+    version: "0.1",
+    repoUrl: "https://github.com/sebasaurio/SQXTools",
+    typeLabel: { es: "CLI / Python", en: "CLI / Python" },
+    statusLabel: { es: "En producción", en: "Live" },
+    tagline: {
+      es: "CLI de Python para el flujo completo de StrategyQuant X: parsear .cfx/.sqb/.cfx (Custom Projects), analizar builders y detectar errores, optimizar con edge finder sobre datos reales, y generar configuraciones listas para importar.",
+      en: "Python CLI for the full StrategyQuant X workflow: parse .cfx/.sqb/.cfx (Custom Projects), analyze builders and catch defects, optimize via edge finder on real data, and generate ready-to-import configs.",
+    },
+    description: {
+      es: "Toolkit CLI v1 que cubre toda la cadena de trabajo con StrategyQuant: (1) parser universal de .cfx, .sqb, .cfx (Custom Projects) a JSON/YAML/Markdown legibles por IA; (2) analizador de configuración de builder y detección de inconsistencias (trading options, rankings, cross-checks); (3) edge finder sobre datos históricos en Parquet (Dukascopy/yfinance, cache incremental) y date optimizer de rangos IS/OOS; (4) generador de .cfx y .sqb optimizados con perfiles parametrizables; (5) integración MT5 (detección de instalaciones, sync de instruments desde SymbolInfoSessionQuote, export de sesiones reales del broker, bootstrap de brokers). Todo genérico para any broker/symbol — fuente de verdad para sesiones es MT5, no la página de Exness.",
+      en: "v1 CLI toolkit covering the full StrategyQuant workflow: (1) universal parser of .cfx, .sqb, .cfx (Custom Projects) to JSON/YAML/Markdown readable by AI; (2) builder configuration analyzer and inconsistency detection (trading options, rankings, cross-checks); (3) edge finder on historical data in Parquet (Dukascopy/yfinance, incremental cache) and date optimizer for IS/OOS ranges; (4) .cfx and .sqb generator with parameterized profiles; (5) MT5 integration (installation detection, instrument sync from SymbolInfoSessionQuote, real broker session export, broker bootstrap). Generic for any broker/symbol — source of truth for sessions is MT5, not the Exness webpage.",
+    },
+    highlights: [
+      {
+        es: "Flujo completo en un CLI: parse, analizar, optimizar, generar, integrar MT5",
+        en: "End-to-end CLI flow: parse, analyze, optimize, generate, integrate MT5",
+      },
+      {
+        es: "MT5 como fuente de verdad: detecta todas tus instalaciones, exporta specs y sesiones reales",
+        en: "MT5 as source of truth: detects all your installations, exports real specs and sessions",
+      },
+      {
+        es: "Boot de broker genérico: un comando — mt5-bootstrap detecta, sync instruments y exporta sesiones",
+        en: "Generic broker bootstrap: one command — mt5-bootstrap detects, syncs instruments and exports sessions",
+      },
+      {
+        es: "Alertas definidas con inteligencia: no alerta si el cross-check global está desactivado; IS/OOS como subconjunto contiguo del IS es walk-forward válido — no lo marca como crítico",
+        en: "Smart alert rules: doesn't alert when the global cross-check is disabled; contiguous OOS subset of IS is valid walk-forward — not flagged as critical",
+      },
+      {
+        es: "Resultados en JSON para que lo lea IA; la misma sesión analiza sin API keys externas",
+        en: "JSON output for AI to read; same session analyzes without external API keys",
+      },
+    ],
+    stack: ["Python 3.11", "ZIP/XML parsing", "MT5 (SymbolInfoSessionQuote)", "Parquet (snappy, float32)", "CLI (argparse)", "GitHub Actions"],
+    tags: ["StrategyQuant", "SQX", "CLI", "Python", "MT5", "Builder", "Optimization"],
+  },
 ];
 
 export const siteCopy: Record<
