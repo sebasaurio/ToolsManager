@@ -1,0 +1,52 @@
+name: Generar tools-meta.json
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: tools-manager
+          fetch-depth: 0
+
+      - name: Clonar repos de herramientas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p tools-manager/repos
+          for repo in SQXPlugins BlockSettings MetatraderAnalysis VirtualSQX SQXTools TradeToTelegram; do
+            dir="tools-manager/repos/$repo"
+            if [ ! -d "$dir/.git" ]; then
+              echo "Clonando $repo..."
+              git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/sebasaurio/$repo.git" "$dir"
+            else
+              echo "Actualizando $repo..."
+              cd "$dir" && git pull --ff-only
+            fi
+          done
+          echo "Repos listos:" && ls tools-manager/repos
+
+      - name: Instalar Python deps (stdlib only — no requiere nada)
+        run: |
+          python3 --version
+
+      - name: Generar metadata
+        run: |
+          python3 tools-manager/scripts/build-tools-meta.py \
+            --out tools-manager/public/tools-meta.json
+          echo "=== Contenido generado ==="
+          cat tools-manager/public/tools-meta.json
+
+      - name: Subir artifact (verificación)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tools-meta-json
+          path: tools-manager/public/tools-meta.json
+          retention-days: 1

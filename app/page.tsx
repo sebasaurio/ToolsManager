@@ -3,7 +3,12 @@
 import { tools, siteCopy } from "@/data/tools";
 import { useT, useLang } from "@/components/LangProvider";
 import { ToolCard } from "@/components/ToolCard";
-import { PrivacyBanner } from "@/components/PrivacyBanner";
+import { FilterBar } from "@/components/FilterBar";
+import { FlowSection } from "@/components/FlowSection";
+import { RoadmapSection } from "@/components/RoadmapSection";
+import { CompareSection } from "@/components/CompareSection";
+import { FAQSection } from "@/components/FAQSection";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   const { lang } = useLang();
@@ -16,6 +21,7 @@ export default function Home() {
 
   return (
     <main className="flex-1">
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
@@ -41,8 +47,51 @@ export default function Home() {
         </div>
       </section>
 
-      <PrivacyBanner />
+      {/* Privacy banner */}
+      <section className="mx-auto max-w-6xl px-5 pb-14">
+        <div className="flex flex-col gap-4 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.07] via-zinc-900/60 to-zinc-900/60 p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-400">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="h-6 w-6"
+              aria-hidden="true"
+            >
+              <path d="M12 2 4 5v6c0 5.25 3.4 10.2 8 11 4.6-.8 8-5.75 8-11V5l-8-3Z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <h2 className="flex items-center gap-2 text-base font-bold tracking-tight text-emerald-300">
+              {t.privacyTitle}
+            </h2>
+            <p className="mt-1 text-sm leading-relaxed text-zinc-400">
+              {t.privacyNote}
+            </p>
+          </div>
+          <ul className="flex flex-col gap-1.5 sm:max-w-xs">
+            {t.privacyPoints.map((point) => (
+              <li key={point} className="flex items-start gap-2 text-sm text-zinc-300">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400"
+                  aria-hidden="true"
+                >
+                  <path d="m5 13 4 4L19 7" />
+                </svg>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
+      {/* Tool grid con filtros */}
       <section className="mx-auto max-w-6xl px-5 pb-24">
         <div className="mb-8 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end">
           <div>
@@ -58,15 +107,39 @@ export default function Home() {
           </p>
         </div>
 
+        <FilterBar tools={tools} />
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <ToolCard key={tool.slug} tool={tool} />
           ))}
         </div>
+
+        {tools.length === 0 && (
+          <p className="py-12 text-center text-sm text-zinc-600">
+            No se encontró ninguna herramienta con esos filtros.
+          </p>
+        )}
       </section>
 
+      {/* Flujo completo */}
+      <FlowSection tools={tools} />
+
+      {/* Roadmap */}
+      <RoadmapSection tools={tools} />
+
+      {/* Comparativa */}
+      <CompareSection tools={tools} />
+
+      {/* FAQ */}
+      <FAQSection />
+
+      {/* Footer */}
       <footer className="border-t border-zinc-800/70 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 sm:flex-row">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+          </div>
           <p className="font-mono text-xs text-zinc-600">
             {t.footer}
           </p>

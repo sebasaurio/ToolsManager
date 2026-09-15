@@ -3,6 +3,7 @@
 import type { Tool } from "@/data/tools";
 import { useLang, useT } from "@/components/LangProvider";
 import { Screenshot } from "@/components/Screenshot";
+import { ToolMeta } from "@/components/ToolMeta";
 
 const typeStyles: Record<Tool["type"], string> = {
   web: "bg-sky-500/10 text-sky-300 border-sky-500/30",
@@ -14,6 +15,7 @@ const statusStyles: Record<Tool["status"], string> = {
   live: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
   dev: "bg-amber-500/10 text-amber-300 border-amber-500/30",
   mvp: "bg-cyan-500/10 text-cyan-300 border-cyan-500/30",
+  wip: "bg-pink-500/10 text-pink-300 border-pink-500/30",
 };
 
 export function ToolCard({ tool }: { tool: Tool }) {
@@ -50,6 +52,8 @@ export function ToolCard({ tool }: { tool: Tool }) {
             </span>
           )}
         </div>
+
+        <ToolMeta tool={tool} />
 
         <div>
           <h2 className="text-xl font-bold tracking-tight text-zinc-100">

@@ -1,0 +1,110 @@
+# Vercel Build: genera tools-meta.json con versiones y fechas desde GitHub
+# Se ejecuta en cada deploy; los datos se leen en el frontend para mostrar
+# versión real + "actualizado hace X" sin hardcodear.
+
+name: generar tools-meta.json
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  generate-meta:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: tools-manager
+          fetch-depth: 0
+
+      - name: Instalar herramientas
+        run: pip install requests --quiet
+
+      - name: Clonar repos de herramientas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/repos
+          for repo in SQXPlugins BlockSettings MetatraderAnalysis VirtualSQX SQXTools TradeToTelegram; do
+            if [ ! -d "/tmp/repos/$repo/.git" ]; then
+              echo "Clonando $repo..."
+              git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/sebasaurio/$repo.git" \
+                "/tmp/repos/$repo"
+            fi
+          done
+          echo "Repos clonados:" && ls /tmp/repos
+
+      - name: Generar metadata
+        run: |
+          set -euo pipefail
+          python3 << 'PYEOF'
+          import json
+          import os
+          import re
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          repos = {
+              "sqx-results-plugins": "SQXPlugins",
+              "block-settings": "BlockSettings",
+              "metatrader-analysis": "MetatraderAnalysis",
+              "sqx-organizer": "VirtualSQX",
+              "sqxtools": "SQXTools",
+              "trade-to-telegram": "TradeToTelegram",
+          }
+
+          meta = {}
+          base = Path("/tmp/repos")
+          for slug, repo_dir in repos.items():
+              repo_path = base / repo_dir
+              if not repo_path.is_dir():
+                  continue
+
+              # version: intentar package.json, luego git tag
+              version = None
+              pkg_path = repo_path / "package.json"
+              if pkg_path.is_file():
+                  pkg = json.loads(pkg_path.read_text(encoding="utf-8"))
+                  version = pkg.get("version") or None
+              if not version:
+                  tag_out = os.popen(
+                      f"cd {repo_path} && git describe --tags --abbrev=0 2>/dev/null"
+                  ).read().strip()
+                  if tag_out:
+                      version = tag_out.lstrip("v")
+
+              # última fecha de commit (UTC) — con clone shallow, git log funciona
+              date_out = os.popen(
+                  f"cd {repo_path} && git log -1 --format='%cI' 2>/dev/null"
+              ).read().strip()
+              last_updated = None
+              updated_label = None
+              if date_out:
+                  dt = datetime.fromisoformat(date_out)
+                  last_updated = int(dt.replace(tzinfo=timezone.utc).timestamp())
+                  updated_label = dt.strftime("%d %b %Y")
+
+              meta[slug] = {
+                  "version": version,
+                  "lastUpdated": last_updated,
+                  "updatedLabel": updated_label,
+                  "changelogUrl": f"https://github.com/sebasaurio/{repo_dir}/blob/main/CHANGELOG.md",
+                  "readmeUrl": f"https://github.com/sebasaurio/{repo_dir}/blob/main/README.md",
+                  "repoName": repo_dir,
+              }
+
+          meta_path = Path("/tmp/meta/tools-meta.json")
+          meta_path.parent.mkdir(parents=True, exist_ok=True)
+          meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+          print("Meta generado para:", list(meta.keys()))
+          PYEOF
+
+      - name: Subir metadata como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tools-meta
+          path: /tmp/meta/tools-meta.json
+          retention-days: 1

@@ -1,0 +1,56 @@
+{
+  "sqx-results-plugins": {
+    "slug": "sqx-results-plugins",
+    "version": null,
+    "lastUpdated": 1788363291,
+    "updatedLabel": "2 Sep 2026",
+    "changelogUrl": "https://github.com/sebasaurio/SQXPlugins/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/SQXPlugins/blob/main/README.md",
+    "repoName": "SQXPlugins"
+  },
+  "block-settings": {
+    "slug": "block-settings",
+    "version": "1.0.0",
+    "lastUpdated": 1787912145,
+    "updatedLabel": "28 Aug 2026",
+    "changelogUrl": "https://github.com/sebasaurio/BlockSettings/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/BlockSettings/blob/main/README.md",
+    "repoName": "BlockSettings"
+  },
+  "metatrader-analysis": {
+    "slug": "metatrader-analysis",
+    "version": null,
+    "lastUpdated": 1787302595,
+    "updatedLabel": "21 Aug 2026",
+    "changelogUrl": "https://github.com/sebasaurio/MetatraderAnalysis/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/MetatraderAnalysis/blob/main/README.md",
+    "repoName": "MetatraderAnalysis"
+  },
+  "sqx-organizer": {
+    "slug": "sqx-organizer",
+    "version": "0.4.2",
+    "lastUpdated": 1787673257,
+    "updatedLabel": "25 Aug 2026",
+    "changelogUrl": "https://github.com/sebasaurio/VirtualSQX/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/VirtualSQX/blob/main/README.md",
+    "repoName": "VirtualSQX"
+  },
+  "sqxtools": {
+    "slug": "sqxtools",
+    "version": null,
+    "lastUpdated": 1789470727,
+    "updatedLabel": "15 Sep 2026",
+    "changelogUrl": "https://github.com/sebasaurio/SQXTools/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/SQXTools/blob/main/README.md",
+    "repoName": "SQXTools"
+  },
+  "trade-to-telegram": {
+    "slug": "trade-to-telegram",
+    "version": null,
+    "lastUpdated": 1769638625,
+    "updatedLabel": "28 Jan 2026",
+    "changelogUrl": "https://github.com/sebasaurio/TradeToTelegram/blob/main/CHANGELOG.md",
+    "readmeUrl": "https://github.com/sebasaurio/TradeToTelegram/blob/main/README.md",
+    "repoName": "TradeToTelegram"
+  }
+}

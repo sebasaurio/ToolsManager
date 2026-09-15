@@ -1,0 +1,17 @@
+# Versión local del workflow para verificar que el script funciona antes de push
+# Esto simula lo que GitHub Actions haría
+
+name: Verificar build-tools-meta localmente
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar script
+        run: |
+          cd tools-manager
+          python3 -c "import ast; ast.parse(open('scripts/build-tools-meta.py').read()); print('✓ Sintaxis OK')"

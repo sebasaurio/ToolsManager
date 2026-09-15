@@ -2,7 +2,7 @@ export type Lang = "es" | "en";
 
 export type ToolType = "web" | "desktop" | "script";
 
-export type ToolStatus = "live" | "dev" | "mvp";
+export type ToolStatus = "live" | "dev" | "mvp" | "wip";
 
 export interface Localized {
   es: string;
@@ -27,6 +27,9 @@ export interface Tool {
   highlights: Localized[];
   stack: string[];
   tags: string[];
+  flowStage?: string;
+  maturity?: "core" | "growing" | "experimental";
+  needs?: string[];
 }
 
 export const tools: Tool[] = [
@@ -67,6 +70,9 @@ export const tools: Tool[] = [
     ],
     stack: ["HTML", "Vanilla JS", "Vue 3", "Canvas", "PostMessage API"],
     tags: ["StrategyQuant", "SQX", "Plugins", "Análisis", "Backtest"],
+    flowStage: "validacion",
+    maturity: "core",
+    needs: ["analizar estrategia seleccionada", "validar anti-overfit", "analítica de trades"],
   },
   {
     slug: "block-settings",
@@ -107,6 +113,9 @@ export const tools: Tool[] = [
     ],
     stack: ["Vue 3", "HTML", "Vercel Functions", "Yahoo Finance API"],
     tags: ["StrategyQuant", "Calibración", "SQX", ".sqb", "Indicadores"],
+    flowStage: "calibracion",
+    maturity: "core",
+    needs: ["calibrar bloques del AlgoWizard", "generar .sqb por símbolo", "ajustar rangos por volatilidad"],
   },
   {
     slug: "metatrader-analysis",
@@ -147,6 +156,9 @@ export const tools: Tool[] = [
     ],
     stack: ["React 19", "Vite", "ECharts", "Chakra UI", "Zustand"],
     tags: ["MetaTrader", "Análisis", "Riesgo", "Monte Carlo", "CSV"],
+    flowStage: "analisis",
+    maturity: "core",
+    needs: ["analizar historial de trades MT4/MT5", "medir riesgo y drawdown", "optimizar portafolio"],
   },
   {
     slug: "sqx-organizer",
@@ -187,6 +199,9 @@ export const tools: Tool[] = [
     ],
     stack: ["Tauri 2", "Rust", "React 19", "TypeScript", "Tailwind", "SQLite"],
     tags: ["StrategyQuant", "Organizador", "Desktop", "SQLite", "Windows"],
+    flowStage: "organizacion",
+    maturity: "growing",
+    needs: ["organizar estrategias SQX", "colecciones virtuales", "buscar y taggear"],
   },
   {
     slug: "trade-to-telegram",
@@ -230,6 +245,9 @@ export const tools: Tool[] = [
     ],
     stack: ["MQL5", "MetaTrader 5", "Telegram Bot API"],
     tags: ["MetaTrader", "Telegram", "Notificaciones", "MQL5", "EA"],
+    flowStage: "monitoreo",
+    maturity: "core",
+    needs: ["notificaciones de trading en tiempo real", "control desde Telegram", "circuit breaker"],
   },
   {
     slug: "sqxtools",
@@ -272,6 +290,9 @@ export const tools: Tool[] = [
     ],
     stack: ["Python 3.11", "ZIP/XML parsing", "MT5 (SymbolInfoSessionQuote)", "Parquet (snappy, float32)", "CLI (argparse)", "GitHub Actions"],
     tags: ["StrategyQuant", "SQX", "CLI", "Python", "MT5", "Builder", "Optimization"],
+    flowStage: "flujo-completo",
+    maturity: "growing",
+    needs: ["parsear/analizar .cfx y .sqb", "validar configuración de builder", "detectar inconsistencias", "optimizar con edge finder", "integrar MT5"],
   },
 ];
 
@@ -298,6 +319,19 @@ export const siteCopy: Record<
     privacyTitle: string;
     privacyPoints: string[];
     privacyNote: string;
+    // --- Nuevas secciones ---
+    filterPlaceholder: string;
+    flowTitle: string;
+    flowSubtitle: string;
+    flowStages: Record<string, { label: string; description: string }>;
+    roadmapTitle: string;
+    roadmapSubtitle: string;
+    compareTitle: string;
+    compareSubtitle: string;
+    faqTitle: string;
+    faqItems: { q: string; a: string }[];
+    darkToggle: string;
+    lightToggle: string;
   }
 > = {
   es: {
@@ -328,6 +362,31 @@ export const siteCopy: Record<
     ],
     privacyNote:
       "Estas herramientas se ejecutan localmente en tu computadora. Puedes revisar el código en GitHub para verificarlo.",
+    // --- Nuevas secciones (ES) ---
+    filterPlaceholder: "Buscar herramienta...",
+    flowTitle: "El flujo completo",
+    flowSubtitle: "Cada herramienta entra en una etapa del ciclo de trading algorítmico.",
+    flowStages: {
+      "flujo-completo": { label: "Flujo completo", description: "Parsear, analizar y generar configuraciones de SQX." },
+      validacion: { label: "Validación", description: "Analizar la estrategia seleccionada en SQX." },
+      calibracion: { label: "Calibración", description: "Ajustar rangos de bloques por símbolo y timeframe." },
+      analisis: { label: "Análisis de trades", description: "Medir rendimiento, riesgo y estabilidad de tu historial." },
+      organizacion: { label: "Organización", description: "Ordenar y etiquetar tu biblioteca de estrategias." },
+      monitoreo: { label: "Monitoreo", description: "Recibir alerts y controlar la cuenta en vivo." },
+    },
+    roadmapTitle: "Estado del toolkit",
+    roadmapSubtitle: "Dónde está cada herramienta y qué viene.",
+    compareTitle: "Qué resuelve cada herramienta",
+    compareSubtitle: "Encontrá la herramienta por lo que necesitás hacer.",
+    faqTitle: "Preguntas frecuentes",
+    faqItems: [
+      { q: "¿Los datos salen de mi máquina?", a: "No. SQXTools, SQX Organizer y ResultsPlugins procesan todo localmente. Metatrader Analyzer lee tus CSVs exportados. TradeToTelegram solo envía lo que configuraste." },
+      { q: "¿Necesito StrategyQuant para usar estas herramientas?", a: "SQXTools, ResultsPlugins y SQX Organizer están pensados para quien usa SQX. BlockSettings lee el BlockSettings.zip de SQX. Metatrader Analyzer y TradeToTelegram son independientes." },
+      { q: "¿Necesito MetaTrader corriendo?", a: "Solo para Monitor de trades (TradeToTelegram) y para que SQXTools exporte sesiones reales del broker. El resto funciona sin él." },
+      { q: "¿Cómo empiezo si todavía no tengo estrategias?", a: "Usá BlockSettings para calibrar bloques e importar un .sqb al AlgoWizard, o SQXTools para analizar un builder existente. Si querés calibrar bloques sin SQX, BlockSettings tiene API HTTP." },
+    ],
+    darkToggle: "Modo claro",
+    lightToggle: "Modo oscuro",
   },
   en: {
     heroBadge: "Personal algorithmic trading toolkit",
@@ -357,5 +416,30 @@ export const siteCopy: Record<
     ],
     privacyNote:
       "These tools run locally on your computer. You can review the code on GitHub to verify it.",
+    // --- Nuevas secciones (EN) ---
+    filterPlaceholder: "Search tools...",
+    flowTitle: "The full flow",
+    flowSubtitle: "Each tool fits into a stage of the algorithmic trading cycle.",
+    flowStages: {
+      "flujo-completo": { label: "Full flow", description: "Parse, analyze and generate SQX configurations." },
+      validacion: { label: "Validation", description: "Analyze the selected strategy inside SQX." },
+      calibracion: { label: "Calibration", description: "Adjust block ranges per symbol and timeframe." },
+      analisis: { label: "Trade analysis", description: "Measure performance, risk and stability of your history." },
+      organizacion: { label: "Organization", description: "Sort and tag your strategy library." },
+      monitoreo: { label: "Monitoring", description: "Receive alerts and control the account live." },
+    },
+    roadmapTitle: "Toolkit status",
+    roadmapSubtitle: "Where each tool stands and what's next.",
+    compareTitle: "What each tool solves",
+    compareSubtitle: "Find the tool for what you need to do.",
+    faqTitle: "Frequently asked questions",
+    faqItems: [
+      { q: "Do my data leave my machine?", a: "No. SQXTools, SQX Organizer and ResultsPlugins process everything locally. Metatrader Analyzer reads your exported CSVs. TradeToTelegram only sends what you configured." },
+      { q: "Do I need StrategyQuant to use these tools?", a: "SQXTools, ResultsPlugins and SQX Organizer are built for SQX users. BlockSettings reads SQX's BlockSettings.zip. Metatrader Analyzer and TradeToTelegram are independent." },
+      { q: "Do I need MetaTrader running?", a: "Only for TradeToTelegram (trade monitoring) and for SQXTools to export real broker sessions. The rest works without it." },
+      { q: "How do I start if I don't have strategies yet?", a: "Use BlockSettings to calibrate blocks and import a .sqb into the AlgoWizard, or SQXTools to analyze an existing builder. If you want to calibrate blocks without SQX, BlockSettings has an HTTP API." },
+    ],
+    darkToggle: "Light mode",
+    lightToggle: "Dark mode",
   },
 };
