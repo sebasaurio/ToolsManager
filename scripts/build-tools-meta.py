@@ -1,18 +1,16 @@
 """Generador de tools-meta.json para Vercel build.
 
-Lee los repos locales y extrae versión + última fecha de commit.
+Lee los repos locales en ../repos/ o el path que se le pase y extrae:
+- versión desde package.json (si existe) o git tag como fallback
+- última fecha de commit (UTC + label legible)
 
-Al ejecutarse en GitHub Actions, los repos se clonan en ./repos/ (relativo al
-checkout de ToolsManager). Para desarrollo local, se puede pasar --repos-dir
-con un path absoluto diferente.
+Output: public/tools-meta.json (NO commiteado — se genera en CI en cada deploy)
 
-Versión:
-  - package.json → "version" (si existe)  [para JS projects]
-  - git tag → describe --tags --abbrev=0  [para repos sin package.json]
+Uso local (desde ToolsManager/):
+  python3 scripts/build-tools-meta.py --repos-dir ../repos
 
-Última fecha: git log -1 --format='%cI' → timestamp UTC + label legible.
-
-Output: public/tools-meta.json
+Uso en GitHub Actions (repos clonados en ./repos/ relativo al checkout):
+  python3 scripts/build-tools-meta.py
 """
 import json
 import subprocess
@@ -22,6 +20,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_REPOS_DIR = HERE.parent / "repos"
+PROD_REPOS_DIR = Path("/home/sebas/repos")  # path real en la máquina del usuario
 
 OUT = HERE.parent / "public" / "tools-meta.json"
 
@@ -44,7 +43,7 @@ def sh(cmd: str) -> str:
 
 
 def version_from_repo(repo_dir: Path) -> str | None:
-    # 1) package.json
+    """Try package.json first, then git tag."""
     pkg = repo_dir / "package.json"
     if pkg.exists():
         try:
@@ -54,7 +53,6 @@ def version_from_repo(repo_dir: Path) -> str | None:
                 return str(v)
         except Exception:
             pass
-    # 2) git tag
     tag = sh(f"cd {repo_dir} && git describe --tags --abbrev=0 2>/dev/null")
     if tag:
         return tag.lstrip("v")
@@ -103,7 +101,7 @@ def main() -> None:
         "--repos-dir",
         type=Path,
         default=DEFAULT_REPOS_DIR,
-        help="directorio donde están los clones de los repos (default: repos/ relativo al script)",
+        help="directorio donde están los clones de los repos",
     )
     parser.add_argument(
         "--out",
